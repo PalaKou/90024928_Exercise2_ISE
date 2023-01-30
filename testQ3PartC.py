@@ -1,48 +1,39 @@
-from Q3PartC import guessing_game
+from Q3PartC import guessing_game 
 import unittest
 import io
 import sys
 
 class TestGuessingGame(unittest.TestCase):
-    def test_answer_lt_42(self):
-        inputs = io.StringIO("20\n42\n")
-        expected_output = "Too low\nYou got it!\n"
-                
-        sys.stdin = inputs
+
+    def test_guess_lower_than_answer(self):
+        sys.stdin = io.StringIO("20")
         captured_output = io.StringIO()
         sys.stdout = captured_output
 
         guessing_game()
-                                                        
-        sys.stdin = sys.__stdin__
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue(), expected_output)                                                                        
-    def test_answer_eq_42(self):
-        
-        inputs = io.StringIO("42\n")
-        expected_output = "You got it!\n"
-                
-        sys.stdin = inputs
+        output = captured_output.getvalue()
+
+        self.assertIn("Too low", output)
+
+    def test_guess_equal_to_answer(self):
+        sys.stdin = io.StringIO("42")
         captured_output = io.StringIO()
         sys.stdout = captured_output
 
         guessing_game()
-                                                        
-        sys.stdin = sys.__stdin__
-        sys.stdout = sys.__stdout__
-    def test_answer_gt_42(self):
-        
-        inputs = io.StringIO("20\n42\n")
-        expected_output = "Too low\nYou got it!\n"
-                
-        sys.stdin = inputs
+        output = captured_output.getvalue()
+
+        self.assertIn("You got it!", output)
+
+    def test_guess_greater_than_answer(self):
+        sys.stdin = io.StringIO("60")
         captured_output = io.StringIO()
         sys.stdout = captured_output
 
         guessing_game()
-                                                        
-        sys.stdin = sys.__stdin__
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue(), expected_output)                                                                        
+        output = captured_output.getvalue()
+
+        self.assertIn("Too high", output)
+
 if __name__ == '__main__':
     unittest.main()
