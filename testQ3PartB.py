@@ -3,7 +3,7 @@ import unittest
 
 class TestReactorCoreWarning(unittest.TestCase):
     def test_reactor_core_warning(self):
-        inputs = [250, 550, 750, 900, 1050, 1150]
+        inputs = [150, 500, 700, 925, 1050, 1200]
         expected_outputs = ["Danger! Core temp too low", "Warning! Core temp low. Decreased efficiency.",
                 "Reactor core operating at standard temperatures",
                 "Reactor core operating at increased temperatures",
